@@ -1,16 +1,19 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import warnings
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 
-from surrogate_lib import AcquisitionStrategies, SafeOptimizer
+from utils import AcquisitionStrategies, SafeOptimizer
+
+warnings.filterwarnings('ignore', category=UserWarning, module='sklearn.gaussian_process')
 
 def true_function(x):
-    """Hàm mục tiêu giả định: x*sin(x)"""
+    """Hàm mục tiêu: x*sin(x)"""
     return x * np.sin(x)
 
 def run_strategy_comparison():
-    print("So sánh các chiến lược khám phá (Section 16.1 - 16.5)")
+    print("So sánh các thuật toán (Section 16.1 - 16.5)")
 
     X_domain = np.linspace(0, 10, 500).reshape(-1, 1)
     y_true = true_function(X_domain).ravel()
